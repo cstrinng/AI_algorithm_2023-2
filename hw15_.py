@@ -1,3 +1,4 @@
+# weighted tictactoe algorithm
 
 def check_winner(board):
     # Check rows
@@ -39,7 +40,7 @@ def is_equal_number_of_x_and_o(board):
     count_o = sum(row.count('o') for row in board)
 
     return count_x == count_o
-#'x' ¿Í 'o'ÀÇ °³¼ö°¡ °°À¸¸é True ´Ù¸£¸é False ¸¦ ¹İÈ¯ÇÏ´Â ÇÔ¼ö
+#'x' ì™€ 'o'ì˜ ê°œìˆ˜ê°€ ê°™ìœ¼ë©´ True ë‹¤ë¥´ë©´ False ë¥¼ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜
 
 def generate_new_states_x(board):
     new_states = []
@@ -52,7 +53,7 @@ def generate_new_states_x(board):
                 new_states.append(new_board)
 
     return new_states
-#ÀüºÎ Ã¤¿öÁ® ÀÖÁö ¾ÊÀº °æ¿ì ºóÄ­ÀÇ °³¼ö¸¸Å­ÀÇ x¸¦ ±×¸° »óÅÂ¸¦ ¸®½ºÆ®·Î ¹İÈ¯
+#ì „ë¶€ ì±„ì›Œì ¸ ìˆì§€ ì•Šì€ ê²½ìš° ë¹ˆì¹¸ì˜ ê°œìˆ˜ë§Œí¼ì˜ xë¥¼ ê·¸ë¦° ìƒíƒœë¥¼ ë¦¬ìŠ¤íŠ¸ë¡œ ë°˜í™˜
 
 
 def generate_new_states_o(board):
@@ -98,7 +99,7 @@ def total_weight(weight_board):
 
 def value(board , a, b,weight_board ):
 
-    # board°¡ ÀüºÎ Ã¤¿öÁ®ÀÖ´Â °æ¿ì
+    # boardê°€ ì „ë¶€ ì±„ì›Œì ¸ìˆëŠ” ê²½ìš°
     if is_board_full(board)==True  :
         if check_winner(board) == "Player o wins!" :
             v=sum_weights_matching_x(weight_board,board)
@@ -114,7 +115,7 @@ def value(board , a, b,weight_board ):
             v = (t/2) - x
             return v
 
-    #board°¡ ÀüºÎ Ã¤¿öÁ® ÀÖÁö ¾ÊÀº °æ¿ì - Á¾·á
+    #boardê°€ ì „ë¶€ ì±„ì›Œì ¸ ìˆì§€ ì•Šì€ ê²½ìš° - ì¢…ë£Œ
     if is_board_full(board)==False :
         if check_winner(board) == "Player o wins!" :
             v=sum_weights_matching_x(weight_board,board)
@@ -125,9 +126,9 @@ def value(board , a, b,weight_board ):
             return v
 
 
-    #board°¡ ÀüºÎ Ã¤¿öÁ® ÀÖÁö ¾ÊÀº °æ¿ì - °è¼Ó ÁøÇà
+    #boardê°€ ì „ë¶€ ì±„ì›Œì ¸ ìˆì§€ ì•Šì€ ê²½ìš° - ê³„ì† ì§„í–‰
     if is_board_full(board)==False :
-        #ÀüºÎ Ã¤¿öÁ® ÀÖÁö ¾ÊÀ¸¸é¼­ ½ÂºÎµµ ³ªÁö ¾Ê¾Ò°í 'x'¿Í 'o'ÀÇ °³¼ö°¡ µ¿ÀÏÇÒ °æ¿ì : 'x'Â÷·Ê
+        #ì „ë¶€ ì±„ì›Œì ¸ ìˆì§€ ì•Šìœ¼ë©´ì„œ ìŠ¹ë¶€ë„ ë‚˜ì§€ ì•Šì•˜ê³  'x'ì™€ 'o'ì˜ ê°œìˆ˜ê°€ ë™ì¼í•  ê²½ìš° : 'x'ì°¨ë¡€
         if check_winner(board) == "No winner yet." and is_equal_number_of_x_and_o(board)==True  :
             v = float('-inf')
             next_states=generate_new_states_x(board)
@@ -137,7 +138,7 @@ def value(board , a, b,weight_board ):
                     return v
                 a = max(a,v)
 
-        #ÀüºÎ Ã¤¿öÁ® ÀÖÁö ¾ÊÀ¸¸é¼­ ½ÂºÎµµ ³ªÁö ¾Ê¾Ò°í 'x'¿Í 'o'ÀÇ °³¼ö°¡ µ¿ÀÏÇÒ °æ¿ì : 'o'Â÷·Ê
+        #ì „ë¶€ ì±„ì›Œì ¸ ìˆì§€ ì•Šìœ¼ë©´ì„œ ìŠ¹ë¶€ë„ ë‚˜ì§€ ì•Šì•˜ê³  'x'ì™€ 'o'ì˜ ê°œìˆ˜ê°€ ë™ì¼í•  ê²½ìš° : 'o'ì°¨ë¡€
         if check_winner(board) == "No winner yet." and is_equal_number_of_x_and_o(board)==False  :
             v = float('inf')
             next_states=generate_new_states_o(board)
